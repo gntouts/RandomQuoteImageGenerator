@@ -1,0 +1,4 @@
+beautifulsoup4==4.8.2
+googletrans==2.4.0
+Pillow==7.1.1
+requests==2.23.0
