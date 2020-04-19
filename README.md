@@ -23,4 +23,6 @@ An automated way to create random images with random quotes on them.
 The services used are [Lorem Picsum](https://picsum.photos/) which is powered by [Unsplash](https://unsplash.com/), [Google Translate](https://translate.google.com/) and [The Quotations Page](http://www.quotationspage.com/).
 
 <hr>
-This was created during the Quarantine Lockdown to have some fun. Cheers!
+
+
+##### This was created during the Quarantine Lockdown to have some fun. Cheers!
