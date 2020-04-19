@@ -12,7 +12,7 @@ pip install -r requirements.txt
 python randomQuoteGenerator.py
 ```
 You can change certain parameters (eg. skip the translation part, change font size).
-See the comments inside [randomQuoteGenerator.py(https://github.com/gntouts/RandomQuoteImageGenerator/blob/master/randomQuoteGenerator.py).
+See the comments inside [randomQuoteGenerator.py](https://github.com/gntouts/RandomQuoteImageGenerator/blob/master/randomQuoteGenerator.py).
 
 ## Known Issues
 + If the random quote is too long, it will not fit correclty. 
