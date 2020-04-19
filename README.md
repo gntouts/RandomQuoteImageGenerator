@@ -9,7 +9,7 @@ pip install -r requirements.txt
 
 ## Usage
 ```
-usage: randomQuoteGenerator.py [-h] [-x, --height] [-y, --width]
+usage: randomQuoteImageGenerator.py [-h] [-x, --height] [-y, --width]
                                [-q, --quality] [-p, --phrase] [-a, --author]
                                [-d, --destination] [-t, --translate]
                                [-c, --color] [-o, --opacity]
