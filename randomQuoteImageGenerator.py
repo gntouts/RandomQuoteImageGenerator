@@ -76,8 +76,10 @@ def createImage(baseImagePath, quote, author, opacity, destination, color):
     img = Image.open(baseImagePath)
     W, H = img.size
     maxSide = W
+    minSide = H
     if W < H:
         maxSide = H
+        minSide = W
 
     # apply gaussian blur
     img = img.filter(ImageFilter.GaussianBlur(radius=maxSide*1.4/800))
@@ -89,7 +91,7 @@ def createImage(baseImagePath, quote, author, opacity, destination, color):
     img = Image.blend(img, solidColorImage, float(opacity))
 
     # download the font of your choice and replace the font with the font file.
-    font = ImageFont.truetype("NotoSerif-Bold.ttf", round(maxSide*35/800))
+    font = ImageFont.truetype("NotoSerif-Bold.ttf", round(minSide*35/800))
 
     # calculate text positioning
     draw = ImageDraw.Draw(img)
@@ -109,9 +111,15 @@ def createImage(baseImagePath, quote, author, opacity, destination, color):
     if author != '':
         author = '-'+author
         font = ImageFont.truetype(
-            "NotoSerif-Regular.ttf", round(maxSide*28/800))
-        w, h = draw.textsize(author, font=font)
-        x, y = 0.9*(W-w), 0.96*H-h
+            "NotoSerif-Regular.ttf", round(minSide*28/800))
+        if W == 1080 and H == 1920:
+            quoteH = h
+            quoteY = y
+            w, h = draw.textsize(author, font=font)
+            x, y = 0.9*(W-w), quoteH+quoteY+0.1*W
+        else:
+            w, h = draw.textsize(author, font=font)
+            x, y = 0.9*(W-w), 0.96*H-h
 
         draw.text((x-1, y), author, font=font, fill='black')
         draw.text((x+1, y), author, font=font, fill='black')
@@ -163,6 +171,7 @@ def main():
         quote = getQuote(rand)
         while 'ERROR:' in quote['quote']:
             sleep(0.5)
+            rand = randint(1, 15000)
             quote = getQuote(rand)
         quote = {'quote': quote['quote'], 'author': quote['author']}
     else:
