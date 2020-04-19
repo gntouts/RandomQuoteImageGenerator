@@ -32,4 +32,4 @@ The services used are [Lorem Picsum](https://picsum.photos/) which is powered by
 <hr>
 
 
-This was created during the Quarantine Lockdown to have some fun. Cheers!
+This was created during the Covid19 Lockdown to have some fun. Cheers!
