@@ -12,14 +12,6 @@ from random import randint
 from bs4 import BeautifulSoup
 from googletrans import Translator
 
-'''If the random quote is too long, it will not fit correclty. If you translate a lot of stuff, Google will ban your IP,
-which will raise a JSONDecodeError. Don't worry, just use a VPN, proxy or wait 20 minutes.
-Some pages in the range of 1-12842 are empty, so expect some 'Error: No quotation found'.
-Automatic translation obviously produces funny results (if you think that sort of stuff funny).
-The services used are https://picsum.photos/, https://unsplash.com/, Google Translate and http://www.quotationspage.com/.
-This was created during the Quarantine Lockdown to have some fun. Cheers!'''
-
-
 def getQuote(ID):
     '''Gets a random quote and returns a dict containing {'quote','author','information'}
 
@@ -41,20 +33,12 @@ def getQuote(ID):
 
 
 def downloadImageBasedOnDimensions(ID, width, height):
-    '''Downloads a random image and saves it as ID.jpg'''
+    '''Downloads a random image and saves it as temp-ID.jpg'''
     url = 'https://picsum.photos/{}/{}'.format(str(width), str(height))
     fname = 'temp-'+str(ID)+'.jpg'
     r = requests.get(url, allow_redirects=True)
     open(fname, 'wb').write(r.content)
     return fname
-
-
-def downloadImage(ID):
-    '''Downloads a random image and saves it as ID.jpg'''
-    url = 'https://picsum.photos/800/800'
-    fname = str(ID)+'.jpg'
-    r = requests.get(url, allow_redirects=True)
-    open(fname, 'wb').write(r.content)
 
 
 def translate(phrase, languageCode):
@@ -158,6 +142,7 @@ def main():
         print("Ok. Let's download a random phrase. Please be patient...")
         quote = getQuote(rand)
         while 'ERROR:' in quote['quote']:
+            sleep(0.5)
             quote = getQuote(rand)
         quote = {'quote': quote['quote'], 'author': quote['author']}
     else:
