@@ -73,7 +73,7 @@ def createImage(baseImagePath, quote, author):
     img = Image.blend(img, black, 0.2)
 
     # download the font of your choice and replace the font with the font file.
-    font = ImageFont.truetype("NotoSerif-Bold.ttf", 35)
+    font = ImageFont.truetype("fonts/NotoSerif-Bold.ttf", 35)
 
     # calculate text positioning
     draw = ImageDraw.Draw(img)
@@ -92,7 +92,7 @@ def createImage(baseImagePath, quote, author):
 
     # repeat process for author
     author = '-'+author
-    font = ImageFont.truetype("NotoSerif-Regular.ttf", 28)
+    font = ImageFont.truetype("fonts/NotoSerif-Regular.ttf", 28)
     w, h = draw.textsize(author, font=font)
     x, y = 0.9*(W-w), 0.96*H-h
 
