@@ -49,13 +49,13 @@ Have fun!
 
 
 ## Known Issues
-+ If the random quote is too long, it will not fit correclty. 
++ If the random quote is too long, or the image too small it will not fit correclty. 
 + If you translate a lot of stuff, Google will ban your IP, which will raise a `JSONDecodeError`. Don't worry, just use a VPN, proxy or wait 20 minutes.
 + Automatic translation obviously produces funny results (if you think that sort of stuff funny).
 
 ## To be done
 + Create an SQLite DB with all the quotes for faster access and no need for spamming [Quotations Page's](http://www.quotationspage.com/) server.
-+ Create a "responsive" way of determining font size etc to fit bigger quotes.
++ Create a "responsive" way of determining font size and text wrapping to fit all quotes regardless of image size
 
 
 ## Services Used
