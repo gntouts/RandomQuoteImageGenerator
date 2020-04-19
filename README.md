@@ -14,7 +14,7 @@ python randomQuoteGenerator.py
 
 ## Known Issues
 + If the random quote is too long, it will not fit correclty. 
-+ If you translate a lot of stuff, Google will ban your IP, which will raise a JSONDecodeError. Don't worry, just use a VPN, proxy or wait 20 minutes.
++ If you translate a lot of stuff, Google will ban your IP, which will raise a `JSONDecodeError`. Don't worry, just use a VPN, proxy or wait 20 minutes.
 + Some pages in the range of 1-12842 are empty, so expect some images with the quote 'Error: No quotation found'.
 + Automatic translation obviously produces funny results (if you think that sort of stuff funny).
 
