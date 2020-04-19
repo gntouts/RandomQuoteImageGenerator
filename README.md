@@ -2,7 +2,8 @@
 An automated way to create random images with random quotes on them.
 
 ## Installation
-```pip install -r requirements.txt```
+```git clone https://github.com/gntouts/RandomQuoteImageGenerator.git
+pip install -r requirements.txt```
 
 ## Usage
 ```python randomQuoteGenerator.py```
