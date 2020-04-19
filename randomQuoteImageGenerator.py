@@ -12,6 +12,14 @@ from random import randint
 from bs4 import BeautifulSoup
 from googletrans import Translator
 
+'''If the random quote is too long, it will not fit correclty. If you translate a lot of stuff, Google will ban your IP,
+which will raise a JSONDecodeError. Don't worry, just use a VPN, proxy or wait 20 minutes.
+Some pages in the range of 1-12842 are empty, so expect some 'Error: No quotation found'.
+Automatic translation obviously produces funny results (if you think that sort of stuff funny).
+The services used are https://picsum.photos/, https://unsplash.com/, Google Translate and http://www.quotationspage.com/.
+This was created during the Quarantine Lockdown to have some fun. Cheers!'''
+
+
 def getQuote(ID):
     '''Gets a random quote and returns a dict containing {'quote','author','information'}
 
@@ -33,12 +41,20 @@ def getQuote(ID):
 
 
 def downloadImageBasedOnDimensions(ID, width, height):
-    '''Downloads a random image and saves it as temp-ID.jpg'''
+    '''Downloads a random image and saves it as ID.jpg'''
     url = 'https://picsum.photos/{}/{}'.format(str(width), str(height))
     fname = 'temp-'+str(ID)+'.jpg'
     r = requests.get(url, allow_redirects=True)
     open(fname, 'wb').write(r.content)
     return fname
+
+
+def downloadImage(ID):
+    '''Downloads a random image and saves it as ID.jpg'''
+    url = 'https://picsum.photos/800/800'
+    fname = str(ID)+'.jpg'
+    r = requests.get(url, allow_redirects=True)
+    open(fname, 'wb').write(r.content)
 
 
 def translate(phrase, languageCode):
@@ -58,19 +74,22 @@ def createImage(baseImagePath, quote, author, opacity, destination, color):
 
     # open downloaded image
     img = Image.open(baseImagePath)
+    W, H = img.size
+    maxSide = W
+    if W < H:
+        maxSide = H
 
     # apply gaussian blur
-    img = img.filter(ImageFilter.GaussianBlur(radius=1.4))
+    img = img.filter(ImageFilter.GaussianBlur(radius=maxSide*1.4/800))
 
     # create new black image to darken the base image
-    W, H = img.size
-    solidColorImage = Image.new("RGB", (W, H), (0, 0, 0))
+    solidColorImage = Image.new("RGB", (W, H), color)
 
     # blend images with alpha 0.2
-    img = Image.blend(img, solidColorImage, opacity)
+    img = Image.blend(img, solidColorImage, float(opacity))
 
     # download the font of your choice and replace the font with the font file.
-    font = ImageFont.truetype("NotoSerif-Bold.ttf", 35)
+    font = ImageFont.truetype("NotoSerif-Bold.ttf", round(maxSide*35/800))
 
     # calculate text positioning
     draw = ImageDraw.Draw(img)
@@ -89,7 +108,8 @@ def createImage(baseImagePath, quote, author, opacity, destination, color):
     # repeat process for author
     if author != '':
         author = '-'+author
-        font = ImageFont.truetype("NotoSerif-Regular.ttf", 28)
+        font = ImageFont.truetype(
+            "NotoSerif-Regular.ttf", round(maxSide*28/800))
         w, h = draw.textsize(author, font=font)
         x, y = 0.9*(W-w), 0.96*H-h
 
