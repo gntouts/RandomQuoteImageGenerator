@@ -3,6 +3,8 @@ import requests
 import textwrap
 import argparse
 from os import remove
+from os import path
+from os import mkdir
 from time import sleep
 from PIL import Image
 from PIL import ImageFont
@@ -11,6 +13,35 @@ from PIL import ImageFilter
 from random import randint
 from bs4 import BeautifulSoup
 from googletrans import Translator
+
+
+def downloadGoogleFont(folder, url):
+    dest = folder+'/'+url.split('/')[-1]
+    font = requests.get(url)
+    open(dest, 'wb').write(font.content)
+
+
+def fontExists(folder, name):
+    return path.isfile(folder+'/'+name)
+
+
+def fontSetup():
+    folder = 'fonts'
+    fonts = ['https://github.com/google/fonts/raw/master/ofl/notoserif/NotoSerif-Bold.ttf',
+             'https://github.com/google/fonts/raw/master/ofl/notoserif/NotoSerif-Regualr.ttf']
+    toBeDownloaded = []
+    if not path.exists(folder):
+        mkdir(folder)
+        for each in fonts:
+            downloadGoogleFont(folder, each)
+    else:
+        for each in fonts:
+            name = each.split('/')[-1]
+            if not fontExists(folder, name):
+                toBeDownloaded.append(each)
+        for each in toBeDownloaded:
+            downloadGoogleFont(folder, each)
+            sleep(0.2)
 
 
 def getQuote(ID):
@@ -150,6 +181,8 @@ def main():
     args = parser.parse_args()
     print('Random Quote Image Creator Initialized. Analysing arguments...')
     sleep(0.1)
+    print('Making sure all fonts are present...')
+    fontSetup()
     res = vars(args)
     rand = randint(1, 15000)
 
